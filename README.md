@@ -1,38 +1,37 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Installs the vpn-server [pritunl](https://pritunl.com/) onto an ubuntu 20.04 (focal) server.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Supported servers:
+* Ubuntu 20.04
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+* `mongodb_connection_string`: The connection string which pritunl will connect to and use as a database connection. Must include authentication. Default value is `mongodb://localhost:27017/test`.
+* `server_port`: The port on which pritunl will listen (web server). Default value is `8080`. 
 
 Dependencies
-------------ffff
+------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```yaml
+- hosts: servers
+  roles:
+     - pritunl
+       mongodb_connection_string: mongodb://localhost:27017/test
+       server_port: 8080
+```
 
 License
 -------
 
-BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+MIT
