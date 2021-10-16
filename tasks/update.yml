@@ -1,0 +1,20 @@
+---
+# setup pritunl
+
+- name: stop pritunl service
+  ansible.builtin.service:
+    name: pritunl
+    state: stopped
+
+- name: set mongodb connection url
+  ansible.builtin.command: pritunl set-mongodb "{{ mongodb_connection_string }}"
+  changed_when: false
+
+- name: set bind port
+  ansible.builtin.command: pritunl set app.server_port "{{ server_port }}"
+  changed_when: false
+
+- name: restart pritunl service
+  ansible.builtin.service:
+    name: pritunl
+    state: restarted

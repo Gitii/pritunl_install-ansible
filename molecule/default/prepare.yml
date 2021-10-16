@@ -1,0 +1,27 @@
+---
+- name: Install apps
+  hosts: all
+  tasks:
+    - name: install apps
+      apt:
+        pkg:
+          - curl
+          - iptables-persistent
+          - lsof
+        state: present
+        update_cache: yes
+
+- name: Execute roles
+  hosts: all
+  roles:
+    - community.mongodb.mongodb_repository
+    - community.mongodb.mongodb_install
+
+- name: Polish
+  hosts: all
+  tasks:
+    - name: start mongod
+      ansible.builtin.service:
+        name: mongod
+        state: restarted
+        enabled: yes

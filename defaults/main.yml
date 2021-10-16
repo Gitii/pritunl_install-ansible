@@ -1,0 +1,5 @@
+---
+# defaults file for pritunl
+
+mongodb_connection_string: "mongodb://localhost:27017/test"
+server_port: 8080

@@ -1,0 +1,38 @@
+---
+# tasks file for pritunl
+- name: Add pritunl apt key by id from a keyserver
+  ansible.builtin.apt_key:
+    keyserver: hkp://keyserver.ubuntu.com
+    id: 7568D9BB55FF9E5287D586017AE645C0CF8E292A
+
+- name: Add pritunl repository into sources list
+  ansible.builtin.apt_repository:
+    repo: deb http://repo.pritunl.com/stable/apt focal main
+    state: present
+
+- name: Install pritunl
+  apt:
+    name: pritunl
+    state: present
+    update_cache: yes
+  notify:
+    - (Re)Start & enable pritunl, in all cases
+
+- name: Update (or do intial setup) if needed
+  block:
+    - name: Test if mongodb connection string is up to date
+      json_patch:
+        src: "/etc/pritunl.conf"
+        operations:
+          - op: test
+            path: "/mongodb_uri"
+            value: "{{ mongodb_connection_string }}"
+      register: mongodb_connection_string_is_up_to_date
+
+    - name: Update or setup if outdated
+      include_tasks: "update.yml"
+      when: "not mongodb_connection_string_is_up_to_date.tested"
+
+  rescue:
+    - name: update or setup
+      include_tasks: "update.yml"

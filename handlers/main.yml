@@ -1,0 +1,7 @@
+---
+# handlers file for pritunl
+- name: (Re)Start & enable pritunl, in all cases
+  ansible.builtin.service:
+    name: pritunl
+    state: restarted
+    enabled: yes
