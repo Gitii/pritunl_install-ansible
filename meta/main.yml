@@ -2,7 +2,7 @@ galaxy_info:
   author: Gitii
   description: Installs Pritunl
   company: ----
-  role_name: pritunl
+  role_name: pritunl_install
   namespace: local
 
   # If the issue tracker for your role is not on github, uncomment the

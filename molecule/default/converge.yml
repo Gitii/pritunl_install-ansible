@@ -4,4 +4,4 @@
   tasks:
     - name: "Include pritunl"
       include_role:
-        name: "pritunl"
+        name: "pritunl_install"

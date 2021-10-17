@@ -26,7 +26,7 @@ Example Playbook
 ```yaml
 - hosts: servers
   roles:
-     - pritunl
+     - pritunl_install
        mongodb_connection_string: mongodb://localhost:27017/test
        server_port: 8080
 ```
